@@ -2,7 +2,7 @@
 <html>
 <body>
 <h1>C - SIMPLE SHELL PROJECT</h1>
-<img src="https://pin.it/28WmxhoWy" title="Simple Shell holberton" /></a>
+<img src="https://i.pinimg.com/736x/93/1a/da/931ada2f410834f0bcd8d70f9f8c1fdb.jpg" title="Simple Shell holberton" /></a>
 <hr>
 
 <h2>Description</h2>
