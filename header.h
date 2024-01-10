@@ -16,5 +16,6 @@ void printEnv();
 char *pathEnv(char *command);
 void executeCommand(char **wordList);
 void cleanMemory(char *buffer, char **wordList);
+char *_getenv(const char *name);
 
 #endif
