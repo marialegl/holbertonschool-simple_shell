@@ -21,5 +21,5 @@ char *pathEnv(char *command)
 
 		dir = strtok(NULL, ":");
 	}
-	return (NULL);
+	return (command);
 }
