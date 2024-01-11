@@ -1,5 +1,13 @@
 #include "header.h"
 
+/**
+ * readInput - Reads a line of input from standard input.
+ *
+ * This function dynamically allocates memory for a line of input using
+ * getline. It removes the newline character and returns the allocated buffer.
+ *
+ * Return: Pointer to the allocated input buffer. Must be freed by the caller.
+ */
 char *readInput()
 {
 	char *buffer = NULL;
@@ -10,7 +18,8 @@ char *readInput()
 
 	if (read == -1)
 	{
-		perror("Error\n");
+		printf("exit");
+		printf("\n");
 		exit(EXIT_FAILURE);
 	}
 

@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #define MAX_WORDS 100
 
 extern char **environ;
@@ -16,5 +17,6 @@ void printEnv();
 char *pathEnv(char *command);
 void executeCommand(char **wordList);
 void cleanMemory(char *buffer, char **wordList);
+char *_getenv(const char *name);
 
 #endif
