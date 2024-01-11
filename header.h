@@ -17,5 +17,7 @@ char *pathEnv(char *command);
 void executeCommand(char **wordList);
 void cleanMemory(char *buffer, char **wordList);
 char *_getenv(const char *name);
+int _setenv(const char *name, const char *value, int overwrite);
+int _unsetenv(const char *name);
 
 #endif

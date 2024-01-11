@@ -2,12 +2,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include "header.h"
 
 extern char **environ;
 
 int _setenv(const char *name, const char *value, int overwrite);
 
-int main()
+int main(void)
 {
 	_setenv("EXAMPLE_VAR", "example_value", 1);
 	printf("EXAMPLE_VAR=%s\n", getenv("EXAMPLE_VAR"));
@@ -15,7 +16,7 @@ int main()
 	printf("EXAMPLE_VAR=%s\n", getenv("EXAMPLE_VAR"));
 	_setenv("NEW_VAR", "new_variable", 1);
 	printf("NEW_VAR=%s\n", getenv("NEW_VAR"));
-	return 0;
+	return (0);
 }
 int _setenv(const char *name, const char *value, int overwrite)
 {
@@ -26,7 +27,7 @@ int _setenv(const char *name, const char *value, int overwrite)
 		{
 			if (!overwrite)
 			{
-				return 0;
+				return (0);
 			}
 			free(environ[i]);
 			break;
@@ -38,19 +39,19 @@ int _setenv(const char *name, const char *value, int overwrite)
 	if (newEnvVar == NULL)
 	{
 		perror("Memory allocation error");
-		return -1;
+		return (-1);
 	}
 	snprintf(newEnvVar, len, "%s=%s", name, value);
 	int envCount;
-	
-	for (envCount = 0; environ[envCount] != NULL; ++envCount) {}
 
+	for (envCount = 0; environ[envCount] != NULL; ++envCount) 
+	{}
 	char **newEnviron = malloc((envCount + 2) * sizeof(char *));
 	if (newEnviron == NULL)
 	{
 		perror("Memory allocation error");
 		free(newEnvVar);
-		return -1;
+		return (1);
 	}
 	for (int j = 0; j < envCount; ++j)
 	{
@@ -59,5 +60,5 @@ int _setenv(const char *name, const char *value, int overwrite)
 	newEnviron[envCount] = newEnvVar;
 	newEnviron[envCount + 1] = NULL;
 	environ = newEnviron;
-	return 0;
+	return (0);
 }
