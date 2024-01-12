@@ -11,7 +11,6 @@
  * or the original command
  * if not found or in case of memory allocation failure.
  */
-
 char *pathEnv(char *command)
 {
 	char *path = _getenv("PATH");
@@ -28,7 +27,8 @@ char *pathEnv(char *command)
 
 	while (dir != NULL)
 	{
-		route = malloc(strlen(dir) + strlen(command) + 2);
+		size_t route_len = strlen(dir) + strlen(command) + 2;
+		route = malloc(route_len);
 
 		if (route == NULL)
 		{
@@ -37,8 +37,8 @@ char *pathEnv(char *command)
 			exit(EXIT_FAILURE);
 		}
 
-		sprintf(route, "%s/%s", dir, command);
-	
+		snprintf(route, route_len, "%s/%s", dir, command);
+
 		if (access(route, X_OK) == 0)
 		{
 			free(copy);
@@ -50,5 +50,5 @@ char *pathEnv(char *command)
 	}
 
 	free(copy);
-	return (strdup(command));
+	return strdup(command);
 }
