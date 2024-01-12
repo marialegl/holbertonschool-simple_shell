@@ -22,11 +22,13 @@ int main(void)
 			printf(":) ");
 
 		fflush(stdout);
-
 		buffer = readInput();
 
 		if (strcmp(buffer, "exit") == 0 || strcmp(buffer, "quit") == 0)
+		{
+			free(buffer);
 			break;
+		}
 
 
 		wordList = tokenize(buffer, &amount);

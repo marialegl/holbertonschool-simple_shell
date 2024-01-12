@@ -8,12 +8,13 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-#define MAX_WORDS 100
+#define MAX_WORDS 1024
+#define SEPARATOR " \n\t"
 
 extern char **environ;
 char *readInput();
-char** tokenize(const char* inputString, int* amountWords);
-void printEnv();
+char **tokenize(const char *inputString, int *amountWords);
+void printEnv(void);
 char *pathEnv(char *command);
 void executeCommand(char **wordList);
 void cleanMemory(char *buffer, char **wordList);

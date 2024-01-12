@@ -18,12 +18,9 @@ char *readInput()
 
 	if (read == -1)
 	{
-		printf("exit");
-		printf("\n");
-		exit(EXIT_FAILURE);
+		exit(0);
 	}
 
 	buffer[strcspn(buffer, "\n")] = '\0';
-
 	return (buffer);
 }

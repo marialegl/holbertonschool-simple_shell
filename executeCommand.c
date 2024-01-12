@@ -22,7 +22,8 @@ void executeCommand(char **wordList)
 
 	if (stat(command, &st) != 0)
 	{
-		printf("bash: %s command not found\n", wordList[0]);
+		fprintf(stderr, "bash: %s command not found\n", wordList[0]);
+		free(command);
 		return;
 	}
 
@@ -31,7 +32,8 @@ void executeCommand(char **wordList)
 	if (process == -1)
 	{
 		perror("bash: fork");
-		exit(EXIT_FAILURE);
+		free(command);
+		return;
 	}
 
 	if (process != 0)
@@ -39,15 +41,24 @@ void executeCommand(char **wordList)
 		int status;
 
 		waitpid(process, &status, 0);
+		free(command);
+
+		if (status != 0)
+		{
+			exit(2);
+		}
 		return;
 	}
 
-	if (strcmp("printenv", wordList[0]) == 0 || strcmp("env", wordList[0]) == 0)
+	/*if (strcmp("printenv", wordList[0]) == 0 || strcmp("env", wordList[0]) == 0)
+	{
 		printEnv();
-
-	if (execve(command, wordList, NULL) == -1)
+		free(command);
+	}*/
+	if (execve(command, wordList, environ) == -1)
 	{
 		perror("bash: execve");
+		free(command);
 		exit(EXIT_FAILURE);
 	}
 	free(command);

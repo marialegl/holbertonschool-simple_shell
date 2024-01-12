@@ -1,5 +1,6 @@
 #include "header.h"
 
+
 /**
  * pathEnv - Resolves the full path of a command using the PATH environment
  * variable.
@@ -10,11 +11,12 @@
  * or the original command
  * if not found or in case of memory allocation failure.
  */
+
 char *pathEnv(char *command)
 {
 	char *path = _getenv("PATH");
 	char *copy = strdup(path);
-	char *dir;
+	char *dir, *route = NULL;
 
 	if (copy == NULL)
 	{
@@ -26,24 +28,27 @@ char *pathEnv(char *command)
 
 	while (dir != NULL)
 	{
-		char *route = malloc(strlen(dir) + strlen(command) + 1);
+		route = malloc(strlen(dir) + strlen(command) + 2);
 
 		if (route == NULL)
 		{
+			free(copy);
 			perror("malloc");
 			exit(EXIT_FAILURE);
 		}
 
 		sprintf(route, "%s/%s", dir, command);
-
+	
 		if (access(route, X_OK) == 0)
+		{
+			free(copy);
 			return (route);
+		}
 
 		free(route);
-
 		dir = strtok(NULL, ":");
 	}
-	free(copy);
 
-	return (command);
+	free(copy);
+	return (strdup(command));
 }

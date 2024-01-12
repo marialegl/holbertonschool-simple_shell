@@ -15,11 +15,11 @@ void cleanMemory(char *buffer, char **wordList)
 {
 	int i;
 
-	free(buffer);
-
 	for (i = 0; wordList[i] != NULL; i++)
 	{
 		free(wordList[i]);
+		wordList[i] = NULL;
 	}
 	free(wordList);
+	free(buffer);
 }
