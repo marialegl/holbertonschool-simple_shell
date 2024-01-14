@@ -8,7 +8,7 @@
  *
  * Return: Pointer to the allocated input buffer. Must be freed by the caller.
  */
-char *readInput()
+char *readInput(void)
 {
 	char *buffer = NULL;
 	size_t bufsize = 0;
@@ -18,6 +18,7 @@ char *readInput()
 
 	if (read == -1)
 	{
+		free(buffer);
 		exit(0);
 	}
 

@@ -12,11 +12,12 @@
  */
 int main(void)
 {
-	int amount;
+	int amountWords;
 	char *buffer;
 	char **wordList;
+	int status = 0;
 
-	while (1)
+	while (status <= 1)
 	{
 		if (isatty(STDIN_FILENO) == 1)
 			printf(":) ");
@@ -30,13 +31,12 @@ int main(void)
 			break;
 		}
 
+		wordList = tokenize(buffer, &amountWords);
 
-		wordList = tokenize(buffer, &amount);
-
-		if (amount > 0)
-			executeCommand(wordList);
+		if (amountWords > 0)
+			status = executeCommand(wordList);
 
 		cleanMemory(buffer, wordList);
 	}
-	return (0);
+	return (status);
 }
