@@ -92,7 +92,7 @@ $</p>
 ------------
 
 <p>Maria Alejandra Gonzales</p>
-<a href="https://www.linkedin.com/feed/">
+<a href="https://www.linkedin.com/in/maria-alejandra-gonzalez-londo%C3%B1o-a5084a208/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
   <img src="https://static-00.iconduck.com/assets.00/linkedin-icon-2048x2048-ya5g47j2.png" width="50">
 </a>
 
