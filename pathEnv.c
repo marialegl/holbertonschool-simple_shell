@@ -14,41 +14,43 @@
 char *pathEnv(char *command)
 {
 	char *path = _getenv("PATH");
-	char *copy = strdup(path);
-	char *dir, *route = NULL;
+	char *dir, *pathCopy, *route = NULL;
 
-	if (copy == NULL)
+	if (path == NULL || *path == '\0')
 	{
-		perror("memory allocation failure");
-		exit(EXIT_FAILURE);
+		if (access(command, X_OK) == 0)
+			return (command);
+		else
+			return (NULL);
 	}
+	pathCopy = strdup(path);
 
-	dir = strtok(copy, ":");
+	if (pathCopy == NULL)
+		return (NULL);
+
+	dir = strtok(pathCopy, ":");
 
 	while (dir != NULL)
 	{
-		size_t route_len = strlen(dir) + strlen(command) + 2;
-		route = malloc(route_len);
+		size_t routeLen = strlen(dir) + strlen(command) + 2;
+
+		route = malloc(routeLen);
 
 		if (route == NULL)
 		{
-			free(copy);
-			perror("malloc");
-			exit(EXIT_FAILURE);
+			free(pathCopy);
+			return (NULL);
 		}
-
-		snprintf(route, route_len, "%s/%s", dir, command);
+		sprintf(route, "%s/%s", dir, command);
 
 		if (access(route, X_OK) == 0)
 		{
-			free(copy);
+			free(pathCopy);
 			return (route);
 		}
-
 		free(route);
 		dir = strtok(NULL, ":");
 	}
-
-	free(copy);
-	return strdup(command);
+	free(pathCopy);
+	return (command);
 }

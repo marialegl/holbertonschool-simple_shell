@@ -12,11 +12,11 @@
 #define SEPARATOR " \n\t"
 
 extern char **environ;
-char *readInput();
-char **tokenize(const char *inputString, int *amountWords);
+char *readInput(void);
+char **tokenize(const char *buffer, int *amountWords);
 void printEnv(void);
 char *pathEnv(char *command);
-void executeCommand(char **wordList);
+int executeCommand(char **wordList);
 void cleanMemory(char *buffer, char **wordList);
 char *_getenv(const char *name);
 

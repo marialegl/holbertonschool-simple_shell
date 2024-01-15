@@ -11,6 +11,7 @@
  * It iterates through the wordList and frees each word before freeing
  * the entire array.
  */
+
 void cleanMemory(char *buffer, char **wordList)
 {
 	int i;
@@ -18,7 +19,7 @@ void cleanMemory(char *buffer, char **wordList)
 	for (i = 0; wordList[i] != NULL; i++)
 	{
 		free(wordList[i]);
-		wordList[i] = NULL;
+		wordList[i] = NULL; /* TO TEST */
 	}
 	free(wordList);
 	free(buffer);

@@ -16,5 +16,4 @@ void printEnv(void)
 	{
 		printf("%s\n", env[i]);
 	}
-	exit(0);
 }

@@ -1,6 +1,4 @@
 #include "header.h"
-
-
 /**
  * executeCommand - Executes a command with the given list of words.
  * @wordList: Pointer to the array of words representing the command.
@@ -11,8 +9,9 @@
  * The child process handles command execution,
  * including checking if the command exists and handling built-in commands.
  *
+ * Return: Always returns 0 to indicate successful completion.
  */
-void executeCommand(char **wordList)
+int executeCommand(char **wordList)
 {
 	struct stat st;
 	char *command;
@@ -20,20 +19,22 @@ void executeCommand(char **wordList)
 
 	command = pathEnv(wordList[0]);
 
-	if (stat(command, &st) != 0)
+	if (command == NULL || stat(command, &st) != 0)
 	{
-		fprintf(stderr, "bash: %s command not found\n", wordList[0]);
-		free(command);
-		return;
+		fprintf(stderr, "./hsh: 1: %s: not found\n", wordList[0]);
+		return (127);
+	}
+
+	if (command != wordList[0])
+	{
+		free(wordList[0]);
+		wordList[0] = command;
 	}
 
 	process = fork();
-
 	if (process == -1)
 	{
-		perror("bash: fork");
-		free(command);
-		return;
+		return (1);
 	}
 
 	if (process != 0)
@@ -41,25 +42,14 @@ void executeCommand(char **wordList)
 		int status;
 
 		waitpid(process, &status, 0);
-		free(command);
-
 		if (status != 0)
-		{
-			exit(2);
-		}
-		return;
+			return (2);
+
+		return (0);
 	}
 
-	/*if (strcmp("printenv", wordList[0]) == 0 || strcmp("env", wordList[0]) == 0)
-	{
-		printEnv();
-		free(command);
-	}*/
-	if (execve(command, wordList, environ) == -1)
-	{
-		perror("bash: execve");
-		free(command);
-		exit(EXIT_FAILURE);
-	}
-	free(command);
+	if (execve(command, wordList, NULL) == -1)
+		return (1);
+
+	return (0);
 }
